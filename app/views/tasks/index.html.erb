@@ -1,0 +1,35 @@
+
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <h1>Listing Tasks</h1>
+<%= will_paginate @tasks %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th colspan="7"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.title, task %></td>
+          <td  white-space:pre ><%= task.description %></td>
+          <td><%= link_to 'Show', task %></td>
+          <td><%= link_to 'Edit', edit_task_path(task) %></td>
+          <% if can? :destroy, Task %>
+            <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+ 
+  </table>
+  <br>
+  <% if can? :create, Task %>
+    <%= link_to 'New Task', new_task_path %>
+  <% end %>
+<% will_paginate @tasks %>
+</div>
